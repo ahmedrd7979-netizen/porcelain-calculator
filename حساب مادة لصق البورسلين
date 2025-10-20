@@ -1,157 +1,145 @@
-/**
- * 👑 حاسبة كمية مادة اللصق لبلاطات البورسلين الكبيرة
- * 🔸 تصميم ملكي – من تنفيذ أبو غالي إنتريورز
- */
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>👑 حاسبة كمية مادة الصق لبلاطات البورسلين الكبيرة – أبو غالي إنتريورز</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #000000, #1c1c1c);
+    color: #f5d67b;
+    padding: 20px;
+    text-align: center;
+  }
+  h1 {
+    font-size: 30px;
+    margin-bottom: 5px;
+    color: #f5d67b;
+    text-shadow: 0 0 10px #caa42d;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: normal;
+    margin-bottom: 30px;
+    color: #e0c675;
+  }
+  .calculator {
+    background: rgba(20,20,20,0.9);
+    border: 2px solid #b99632;
+    border-radius: 20px;
+    padding: 25px;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0 0 30px rgba(249,223,109,0.15);
+  }
+  table { width:100%; border-collapse: collapse; margin-top:15px; }
+  td { padding:10px; font-size:16px; color:#f7e7ac; }
+  input {
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #b99632;
+    background:#111;
+    color:#f7e7ac;
+    text-align:center;
+    font-size:16px;
+  }
+  input::placeholder { color:#a88f40; }
+  button {
+    margin-top:20px;
+    padding:14px;
+    width:100%;
+    border:none;
+    border-radius:12px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    background: linear-gradient(135deg,#b99632,#f5d67b);
+    color:#000;
+    transition:0.3s;
+  }
+  button:hover {
+    background: linear-gradient(135deg,#d4af37,#ffe37a);
+    box-shadow:0 0 12px rgba(245,214,123,0.6);
+  }
+  .result {
+    margin-top:25px;
+    padding:20px;
+    border:1px solid #b99632;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
+    color:#fff;
+    background:#111;
+  }
+  .summary { text-align:left; margin-top:15px; color:#fff; font-size:14px; }
+  footer { margin-top:35px; font-size:14px; color:#a88f40; }
+</style>
+</head>
 
-function doGet() {
-  return HtmlService.createHtmlOutput(`
-  <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حاسبة مادة اللصق | أبو غالي إنتريورز</title>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
-      body {
-        font-family: 'Cairo', sans-serif;
-        background: linear-gradient(135deg, #000000, #1c1c1c);
-        color: #f5d67b;
-        padding: 20px;
-        text-align: center;
-      }
-      h1 {
-        color: #f5d67b;
-        font-size: 30px;
-        margin-bottom: 10px;
-        text-shadow: 0 0 10px #caa42d;
-      }
-      h2 {
-        color: #e0c675;
-        font-weight: normal;
-        font-size: 18px;
-        margin-bottom: 30px;
-      }
-      .calculator {
-        background: rgba(20, 20, 20, 0.9);
-        border: 2px solid #b99632;
-        border-radius: 20px;
-        padding: 25px;
-        max-width: 450px;
-        margin: auto;
-        box-shadow: 0 0 30px rgba(249, 223, 109, 0.15);
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-      }
-      td {
-        padding: 12px;
-        font-size: 16px;
-        color: #f7e7ac;
-      }
-      input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #b99632;
-        border-radius: 10px;
-        background: #111;
-        color: #f7e7ac;
-        font-size: 16px;
-        text-align: center;
-      }
-      input::placeholder {
-        color: #a88f40;
-      }
-      button {
-        margin-top: 25px;
-        background: linear-gradient(135deg, #b99632, #f5d67b);
-        color: #000;
-        padding: 14px;
-        border: none;
-        border-radius: 12px;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer;
-        width: 100%;
-        transition: 0.3s;
-      }
-      button:hover {
-        background: linear-gradient(135deg, #d4af37, #ffe37a);
-        box-shadow: 0 0 12px rgba(245, 214, 123, 0.6);
-      }
-      .result {
-        margin-top: 25px;
-        padding: 20px;
-        background: #111;
-        border: 1px solid #b99632;
-        border-radius: 10px;
-        font-size: 18px;
-        font-weight: bold;
-        color: #f5d67b;
-      }
-      footer {
-        margin-top: 35px;
-        font-size: 14px;
-        color: #a88f40;
-      }
-    </style>
-  </head>
+<body>
+<h1>📐 حاسبة مادة الصق</h1>
+<h2>لبلاطات البورسلين الكبيرة – أبو غالي إنتريورز</h2>
 
-  <body>
-    <h1>📐 حاسبة مادة اللصق</h1>
-    <h2>لبلاطات البورسلين الكبيرة – أبو غالي إنتريورز</h2>
+<div class="calculator">
+  <table>
+    <tr>
+      <td>طول البلاطة (سم):</td>
+      <td><input type="number" id="length" placeholder="مثلاً 160"></td>
+    </tr>
+    <tr>
+      <td>عرض البلاطة (سم):</td>
+      <td><input type="number" id="width" placeholder="مثلاً 320"></td>
+    </tr>
+    <tr>
+      <td>المساحة الكلية (م²):</td>
+      <td><input type="number" id="area" placeholder="مثلاً 130"></td>
+    </tr>
+    <tr>
+      <td>وزن شيكارة مادة الصق (كجم):</td>
+      <td><input type="number" id="bagWeight" placeholder="مثلاً 20"></td>
+    </tr>
+  </table>
 
-    <div class="calculator">
-      <table>
-        <tr>
-          <td>طول البلاطة (سم):</td>
-          <td><input type="number" id="length" placeholder="مثلاً 160"></td>
-        </tr>
-        <tr>
-          <td>عرض البلاطة (سم):</td>
-          <td><input type="number" id="width" placeholder="مثلاً 320"></td>
-        </tr>
-        <tr>
-          <td>المساحة الكلية (م²):</td>
-          <td><input type="number" id="area" placeholder="مثلاً 130"></td>
-        </tr>
-        <tr>
-          <td>وزن شيكارة مادة اللصق (كجم):</td>
-          <td><input type="number" id="bagWeight" placeholder="مثلاً 20"></td>
-        </tr>
-      </table>
+  <button onclick="calculate()">احسب الآن</button>
 
-      <button onclick="calculate()">احسب الآن</button>
+  <div class="result" id="result">النتيجة ستظهر هنا...</div>
+  <div class="summary" id="summary"></div>
+</div>
 
-      <div class="result" id="result">النتيجة ستظهر هنا...</div>
-    </div>
+<footer>© 2025 أبو غالي إنتريورز | تنفيذ هندسي احترافي بمعايير عالمية</footer>
 
-    <footer>
-      © 2025 أبو غالي إنتريورز | تنفيذ هندسي احترافي بمعايير عالمية
-    </footer>
+<script>
+function calculate() {
+  const L = parseFloat(document.getElementById('length').value);
+  const W = parseFloat(document.getElementById('width').value);
+  const A = parseFloat(document.getElementById('area').value);
+  const B = parseFloat(document.getElementById('bagWeight').value);
 
-    <script>
-      function calculate() {
-        let L = parseFloat(document.getElementById('length').value);
-        let W = parseFloat(document.getElementById('width').value);
-        let A = parseFloat(document.getElementById('area').value);
-        let B = parseFloat(document.getElementById('bagWeight').value);
+  if (isNaN(L)||isNaN(W)||isNaN(A)||isNaN(B)) {
+    document.getElementById('result').innerHTML="⚠️ من فضلك أدخل جميع القيم بشكل صحيح.";
+    document.getElementById('summary').innerHTML="";
+    return;
+  }
 
-        if (isNaN(L) || isNaN(W) || isNaN(A) || isNaN(B)) {
-          document.getElementById('result').innerHTML = "⚠️ من فضلك أدخل جميع القيم بشكل صحيح.";
-          return;
-        }
+  // حساب الكمية التقريبية بمراعاة معامل الأمان
+  const totalKg = (A * 15 * 1.33); // المعادلة تقريبية
+  const totalBags = totalKg / B;
 
-        // المعادلة التقريبية
-        let totalKg = ((A) * 15 * 1.33);
-        let totalBags = totalKg / B;
+  document.getElementById('result').innerHTML =
+    "🔸 الكمية المطلوبة: <b>" + totalKg.toFixed(1) + " كجم</b><br>" +
+    "🧱 عدد الشكاير التقريبي: <b>" + totalBags.toFixed(1) + " شيكارة</b>";
 
-        document.getElementById('result').innerHTML = 
-          "🔸 الكمية المطلوبة: <b>" + totalKg.toFixed(1) + " كجم</b><br>" + 
-          "🧱 عدد الشكاير التقريبي: <b>" + totalBags.toFixed(1) + " شيكارة</b>";
-      }
-    </script>
-  </body>
-  </html>
-  `);
+  // ملخص المدخلات
+  document.getElementById('summary').innerHTML =
+    "📌 ملخص المدخلات:<br>" +
+    "طول البلاطة: " + L + " سم<br>" +
+    "عرض البلاطة: " + W + " سم<br>" +
+    "المساحة الكلية: " + A + " م²<br>" +
+    "وزن شيكارة مادة الصق: " + B + " كجم";
 }
+</script>
+</body>
+</html>
